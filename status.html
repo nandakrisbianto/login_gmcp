@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    $(if refresh-timeout)
+    <meta http-equiv="refresh" content="$(refresh-timeout-secs)">
+    $(endif)
+    <!-- Required meta tags -->
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <title>WIFI GMCP</title>
+    <script>
+
+      $(if advert-pending == 'yes')
+          var popup = '';
+          function focusAdvert() {
+        if (window.focus) popup.focus();
+          }
+          function openAdvert() {
+        popup = open('$(link-advert)', 'hotspot_advert', '');
+        setTimeout("focusAdvert()", 1000);
+          }
+      $(endif)
+          function openLogout() {
+        if (window.name != 'hotspot_status') return true;
+              open('$(link-logout)', 'hotspot_logout', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=280,height=250');
+        window.close();
+        return false;
+          }
+      </script>
+  </head>
+  <body $(if advert-pending == 'yes') onLoad="openAdvert()" $(endif)>
+    
+    <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+      <div class="row align-items-center g-lg-5 py-5">
+        <div class="col-lg-7 text-center text-lg-start">
+          <div class="mb-3">
+            <img src="img/logo.png" width="35%" class="img-fluid mx-auto d-block" alt="">
+          </div>
+          <h1 class="display-5 fw-bold lh-1 mb-3">BERHASIL TERHUBUNG WIFI GMCP</h1>
+          <p class="col-lg-10 fs-5">Hai ! Kamu sudah terhubung dengan WIFI GMCP. Yuk gunakan internet secara bijak dan sesuai fungsinya.</p>
+        </div>
+        <div class="col-md-10 mx-auto col-lg-5 mt-4 shadow-lg p-3 mb-5 bg-body rounded">
+          <div class="text-center">
+            $(if login-by == 'trial')
+        <h2 class="fs-5">Hi, trial user!</h2>
+        $(elif login-by != 'mac')
+            <h2 class="fs-5">Hi, $(username)!</h2>
+        $(endif)   
+          </div>
+          <form action="$(link-logout)" name="logout" onSubmit="return openLogout()">
+            <table class="table table-bordered">
+              <tr><td>IP address</td><td>$(ip)</td></tr>
+              <tr><td>Bytes up / down</td><td>$(bytes-in-nice) / $(bytes-out-nice)</td></tr>
+          $(if session-time-left)
+              <tr><td>Connected / left</td><td>$(uptime) / $(session-time-left)</td></tr>
+          $(else)
+              <tr><td>Connected</td><td>$(uptime)</td></tr>
+          $(endif)
+          $(if blocked == 'yes')
+              <tr><td>Status</td><td>
+          <a href="$(link-advert)" target="hotspot_advert">Advertisement required</a></td>
+              </tr>
+          $(elif refresh-timeout)
+              <tr><td>Status refresh</td><td>$(refresh-timeout)</td></tr>
+          $(endif)
+              </table>
+          $(if login-by-mac != 'yes')
+          <!-- user manager link. if user manager resides on other router, replace $(hostname) by its address
+          <button onclick="document.location='http://$(hostname)/user?subs='; return false;">status</button>
+          <!-- end of user manager link -->
+          <div class="text-center">
+            <input type="submit" class="btn btn-primary mt-3" value="Log out">
+          </div>
+          $(endif)
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="js/bootstrap.bundle.min.js" ></script>
+
+
+  </body>
+</html>

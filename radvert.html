@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <title>WIFI GMCP</title>
+    <script>
+
+        var popup = '';
+        function openOrig() {
+        if (window.focus) popup.focus();
+        location.href = unescape('$(link-orig-esc)');
+        }
+        function openAd() {
+        location.href = unescape('$(link-redirect-esc)');
+        }
+        function openAdvert() {
+        if (window.name != 'hotspot_advert') {
+            popup = open('$(link-redirect)', 'hotspot_advert', '');
+            setTimeout("openOrig()", 1000);
+            return;
+        }
+        setTimeout("openAd()", 1000);
+        }
+    </script>
+  </head>
+  <body onLoad="openAdvert()">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-5 bg-body rounded">
+      <div class="container">
+        <a class="navbar-brand" href="#"><img src="img/logo.png" alt="" width="45" class="d-inline-block align-text-top"> <small>HOTSPOT GMCP</small></a>
+        </div>
+      </div>
+    </nav>
+      <div class="container">
+        <center>
+            <img width="500" src="img/kemerdekaan.png" class="img-thumbnail" alt="Dirgahayu Indonesia">
+        </center>
+        <div class="text-center w-75 align-items-center mx-auto mb-4">
+              <p>
+                <div class="alert alert-primary" role="alert">
+                    Selamat Kamu Berhasil Tersambung Dengan hotspot GMCP.
+                </div><br>
+                <p class="info">If nothing happens, open <a href="$(link-redirect)" target="hotspot_advert">advertisement</a> manually.</p>
+              </p>
+        </div>
+        </div>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="js/bootstrap.bundle.min.js" ></script>
+
+
+  </body>
+</html>

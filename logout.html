@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <title>WIFI GMCP</title>
+    <script>
+      function openLogin() {
+    if (window.name != 'hotspot_logout') return true;
+    open('$(link-login)', '_blank', '');
+    window.close();
+    return false;
+      }
+  </script>
+  </head>
+  <body>
+
+    <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+      <div class="row align-items-center g-lg-5 py-5">
+        <div class="col-lg-7 text-center text-lg-start">
+          <div class="mb-3">
+            <img src="img/logo.png" width="35%" class="img-fluid mx-auto d-block" alt="">
+          </div>
+          <h1 class="display-4 fw-bold lh-1 mb-3">BERHASIL KELUAR WIFI GMCP</h1>
+          <p class="col-lg-10 fs-5">Terima Kasih Atas Kunjungan Anda di Perusahaan kami. Jangan lupa berikan kesan anda kepada perusahaan kami dan Sampai Jumpa Kembali.</p>
+        </div>
+        <div class="col-md-10 mx-auto col-lg-5 mt-4 shadow-lg p-3 mb-5 bg-body rounded">
+          <div class="text-center">
+            <h2 class="fs-5">Penggunaan Hotspot Anda :</h2>
+          </div>
+          <table class="table table-bordered">  
+            <tr><td>Username</td><td>$(username)</td></tr>
+            <tr><td>IP address</td><td>$(ip)</td></tr>
+            <tr><td>MAC address</td><td>$(mac)</td></tr>
+            <tr><td>Session time</td><td>$(uptime)</td></tr>
+            $(if session-time-left)
+            <tr><td>Time left</td><td>$(session-time-left)</td></tr>
+            $(endif)
+            <tr><td>Bytes up / down:</td><td>$(bytes-in-nice) / $(bytes-out-nice)</td></tr>
+        </table>
+        <div class="text-center mt-3">
+          <form action="$(link-login)" name="login" onSubmit="return openLogin()">
+            <input class="btn btn-primary" type="submit" value="Log in">
+          </form>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="js/bootstrap.bundle.min.js" ></script>
+
+
+  </body>
+</html>

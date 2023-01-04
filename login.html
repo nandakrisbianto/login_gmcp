@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="-1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <title>WIFI GMCP</title>
+  </head>
+  <body>
+
+    $(if chap-id)
+    <form name="sendin" action="$(link-login-only)" method="post" style="display:none">
+        <input type="hidden" name="username" />
+        <input type="hidden" name="password" />
+        <input type="hidden" name="dst" value="$(link-orig)" />
+        <input type="hidden" name="popup" value="true" />
+    </form>
+
+    <script src="/md5.js"></script>
+    <script>
+        function doLogin() {
+            document.sendin.username.value = document.login.username.value;
+            document.sendin.password.value = hexMD5('$(chap-id)' + document.login.password.value + '$(chap-challenge)');
+            document.sendin.submit();
+            return false;
+        }
+
+    </script>
+    $(endif)
+
+      <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+        <div class="row align-items-center g-lg-5 py-5">
+          <div class="col-lg-7 text-center text-lg-start">
+            <div class="mb-3">
+              <img src="img/logo.png" width="35%" class="img-fluid mx-auto d-block" alt="">
+            </div>
+            <h1 class="display-4 fw-bold lh-1 mb-3">SELAMAT DATANG DI WIFI AREA GMCP</h1>
+            <p class="col-lg-10 fs-5">Silahkan login menggunakan username dan password yang kamu miliki. Untuk pengguna yang sering disconected pastikan pengaturan mac wifi menjadi mac perangkat.</p>
+          </div>
+          <div class="col-md-10 mx-auto col-lg-5 mt-4">
+            <form class="p-4 p-md-5 border rounded-3 bg-light" name="login" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLogin()" $(endif)>
+              <input type="hidden" name="dst" value="$(link-orig)" />
+              <input type="hidden" name="popup" value="true" />
+              <div class="text-center mb-4">
+                <h5>LOGIN HOTSPOT</h5>
+              </div>
+              <div class="form-floating mb-3">
+                <input name="username" type="text" value="$(username)" class="form-control" id="floatingInput" placeholder="Masukan Username">
+                <label for="floatingInput">username</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Masukan Password">
+                <label for="floatingPassword">Password</label>
+              </div>
+              
+              <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+              <hr class="my-4">
+              <small class="text-muted"> 
+                <p class="info $(if error)alert$(endif)">
+                    $(if error == "")$(if trial == 'yes')<br />Tidak Punya Username & Password ? Klik Berikut ini Untuk Wifi Gratis, <a href="$(link-login-only)?dst=$(link-orig-esc)&amp;username=T-$(mac-esc)">Gratis Wifi 4 Jam</a>.$(endif)
+                    $(endif)
+
+                    $(if error)$(error)$(endif)
+                </p></small>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="js/bootstrap.bundle.min.js" ></script>
+
+
+  </body>
+</html>
